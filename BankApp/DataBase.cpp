@@ -1,65 +1,6 @@
 #include "DataBase.h"
 
 namespace NSData {
-/*
- * class User
- */
-
-void User::setName(const QString& _name)
-{
-    m_oName = _name;
-}
-
-void User::setLastName(const QString& _lastname)
-{
-    m_oLastName = _lastname;
-}
-
-void User::setLogin(const QString& _login)
-{
-    m_oLogin = _login;
-}
-
-void User::setPassword(const QString& _password)
-{
-    m_oPassword = _password;
-}
-
-void User::setRating(float _rating)
-{
-    m_oRating = _rating;
-}
-
-QString User::getName() const
-{
-    return m_oName;
-}
-
-QString User::getLastName() const
-{
-    return m_oLastName;
-}
-
-QString User::getLogin() const
-{
-    return m_oLogin;
-}
-
-QString User::getPassword() const
-{
-    return m_oPassword;
-}
-
-float User::getRating() const
-{
-    return m_oRating;
-}
-
-////////////////////////////////////////////////////
-
-/*
- * class DataBase
- */
 DataBase::DataBase()
 {
     Connect();
@@ -107,7 +48,7 @@ bool DataBase::CheckLogin(const QString& _login)
 void DataBase::resetUsersRating(const User& _user, float _newrating)
 {
     QSqlQuery query = QSqlQuery(m_db);
-    query.exec("UPDATE Users SET Rating = " + QString::number(_newrating) + "WHERE Login = '" + _user.getLogin() + "'");
+    query.exec("UPDATE Users SET Rating = " + QString::number(_newrating) + "WHERE Login = '" + _user.Login + "'");
 }
 
 bool DataBase::setUser(const User& _user)
@@ -115,11 +56,11 @@ bool DataBase::setUser(const User& _user)
     QSqlQuery query = QSqlQuery(m_db);
     if (!query.exec("INSERT INTO Users(ID, Name, LastName, Login, Password, Rating) VALUES(" +
                     QString::number(getLastId() + 1) + ", "+
-                    "'" + _user.getName() + "', " +
-                    "'" + _user.getLastName() + "', " +
-                    "'" + _user.getLogin() + "', " +
-                    "'" + _user.getPassword() + "', " +
-                    QString::number(_user.getRating()) + ")"))
+                    "'" + _user.Name + "', " +
+                    "'" + _user.LastName + "', " +
+                    "'" + _user.Login + "', " +
+                    "'" + _user.Password + "', " +
+                    QString::number(_user.Rating) + ")"))
     {
         m_sError = query.lastError().text();
         return false;
