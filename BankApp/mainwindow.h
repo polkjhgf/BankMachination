@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLineEdit>
+#include "DataBase.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,6 +19,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    NSData::DataBase m_oDB;
 private:
     Ui::MainWindow *ui;
 };
