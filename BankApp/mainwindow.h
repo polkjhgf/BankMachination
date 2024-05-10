@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLineEdit>
+#include <QCryptographicHash>
 #include "DataBase.h"
 
 QT_BEGIN_NAMESPACE
@@ -19,8 +20,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    NSData::DataBase m_oDB;
+    void Connect();
+    void Disconnect();
+
+
 private:
+    NSData::Users m_oUsers;
+    NSData::Credits m_oCredits;
+    NSData::Deposits m_oDeposits;
+
     Ui::MainWindow *ui;
+    QSqlDatabase m_oDB;
 };
 #endif // MAINWINDOW_H

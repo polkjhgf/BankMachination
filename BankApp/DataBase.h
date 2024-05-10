@@ -8,6 +8,30 @@
 #include <QMessageBox>
 
 namespace NSData {
+template <typename T>
+class DataBase
+{
+public:
+    DataBase(QSqlDatabase *_db) : m_db(_db) {}
+    DataBase() : m_db(nullptr) {}
+    ~DataBase() {}
+
+    virtual bool Check(const T& _data) = 0;
+
+    virtual bool Set(const T& _data) = 0;
+
+    virtual T Get(int id) = 0;
+
+    QString getError() { return m_sError; }
+protected:
+    virtual int getLastID() = 0;
+    virtual void resetData(const T& _data) = 0;
+
+protected:
+    QSqlDatabase *m_db;
+    QString m_sError;
+};
+
 struct User
 {
     User(const QString& _name,
@@ -31,6 +55,23 @@ struct User
     float Rating;
 };
 
+class Users : public DataBase<User>
+{
+public:
+    Users(QSqlDatabase *_db) : DataBase(_db) {}
+    Users() : DataBase() {}
+    bool Check(const User& _user) override;
+
+    bool Set(const User& _user) override;
+
+    User Get(int id) override;
+    User Get(const QString& _login);
+
+protected:
+    int getLastID() override;
+    void resetData(const User& _user) override;
+};
+
 struct Credit
 {
     Credit(int _customerid,
@@ -51,6 +92,23 @@ struct Credit
     bool MonthPaid;
 };
 
+class Credits : public DataBase<Credit>
+{
+public:
+    Credits(QSqlDatabase *_db) : DataBase(_db) {}
+    Credits() : DataBase() {}
+
+    bool Check(const Credit& _credit) override;
+
+    bool Set(const Credit& _credit) override;
+
+    Credit Get(int id) override;
+
+protected:
+    int getLastID() override;
+    void resetData(const Credit& _credit) override;
+};
+
 struct Deposit
 {
     Deposit(int _customerid,
@@ -65,42 +123,21 @@ struct Deposit
     int Amount;
 };
 
-class DataBase
+class Deposits : public DataBase<Deposit>
 {
 public:
-    DataBase();
-    ~DataBase();
+    Deposits(QSqlDatabase *_db) : DataBase(_db) {}
+    Deposits() : DataBase() {}
 
-    void Connect();
-    void Disconnect();
+    bool Check(const Deposit& _deposit) override;
 
-    bool CheckConnection();
-    bool CheckLogin(const QString& _login);
-    bool CheckDeposit(const Deposit& _deposite);
-    bool CheckCredit(const Credit& _credit);
+    bool Set(const Deposit& _deposit) override;
 
-    void resetUsersRating(const User& _user, float _newrating);
-
-    bool setUser(const User& _user);
-    bool setCredit(const Credit& _credit);
-    bool setDeposit(const Deposit& _deposite);
-
-    Credit getCredit(int id) const;
-    Deposit getDeposite(int id) const;
-    User getUser(int id) const;
-    User getUser(const QString& _login) const;
-    QString getError() const;
-    int getLastId() const;
-    int getLastIDCredit() const;
-    int getLastIDDeposit() const;
+    Deposit Get(int id) override;
 
 protected:
-    void ResetIncome(const Credit& _credit);
-    void ResetConsumption(const Deposit& _deposit);
-
-private:
-    QSqlDatabase m_db;
-    QString m_sError;
+    int getLastID() override;
+    void resetData(const Deposit& _deposit) override;
 };
 }
 
