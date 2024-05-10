@@ -12,16 +12,19 @@ SOURCES += \
     DataBase.cpp \
     main.cpp \
     mainwindow.cpp \
-    registrationwindow.cpp
+    registrationwindow.cpp \
+    userwindow.cpp
 
 HEADERS += \
     DataBase.h \
     mainwindow.h \
-    registrationwindow.h
+    registrationwindow.h \
+    userwindow.h
 
 FORMS += \
     mainwindow.ui \
-    registrationwindow.ui
+    registrationwindow.ui \
+    userwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

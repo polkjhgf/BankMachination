@@ -7,6 +7,7 @@
 #include <QPalette>
 #include <QLabel>
 #include "registrationwindow.h"
+#include "userwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,8 +24,6 @@ public:
     ~MainWindow();
 
     void Connect();
-    void Disconnect();
-
 
 private slots:
     void on_LoginButton_clicked();

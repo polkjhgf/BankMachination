@@ -59,12 +59,13 @@ User Users::Get(const QString& _login)
 {
     QSqlQuery query = QSqlQuery(*m_db);
     query.exec("SELECT * FROM Users WHERE Login = '" + _login + "'");
-    return User(query.value(0).toString(),
-                query.value(1).toString(),
+    query.first();
+    return User(query.value(1).toString(),
                 query.value(2).toString(),
                 query.value(3).toString(),
-                query.value(4).toDouble(),
-                query.value(5).toFloat());
+                query.value(4).toString(),
+                query.value(5).toDouble(),
+                query.value(6).toFloat());
 }
 
 int Users::getLastID()

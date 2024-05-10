@@ -8,13 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Connect();
     m_oUsers = NSData::Users(m_oDB);
-    m_oCredits = NSData::Credits(m_oDB);
-    m_oDeposits = NSData::Deposits(m_oDB);
+    ui->PasswordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
 MainWindow::~MainWindow()
 {
-    Disconnect();
     delete ui;
 }
 
@@ -28,15 +26,9 @@ void MainWindow::Connect()
     m_oDB->open();
 }
 
-void MainWindow::Disconnect()
-{
-    m_oDB->close();
-    m_oDB->~QSqlDatabase();
-}
-
 void MainWindow::on_LoginButton_clicked()
 {
-    if (!m_oUsers.Check(ui->LoginLineEdit->text()))
+    if (m_oUsers.Check(ui->LoginLineEdit->text()))
     {
         ui->LoginErrorLabel->setText("Incorrect login!");
         return;
@@ -44,13 +36,18 @@ void MainWindow::on_LoginButton_clicked()
 
     NSData::User user = m_oUsers.Get(ui->LoginLineEdit->text());
 
+    QString pas = HashPassword(ui->PasswordLineEdit->text());
+
     if (HashPassword(ui->PasswordLineEdit->text()) != user.Password)
     {
         ui->PasswordErrorLabel->setText("IncorrectPassword!");
         return;
     }
 
-    //setUser(user);
+    this->hide();
+    UserWindow window(nullptr, &user, m_oDB);
+    window.setModal(true);
+    window.exec();
 }
 
 

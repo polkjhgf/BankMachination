@@ -26,7 +26,6 @@ public:
 
 private slots:
 
-
     void on_RegistrationButton_clicked();
 
 private:
