@@ -27,7 +27,7 @@ bool Users::Check(const QString& _login)
 bool Users::Set(const User& _user)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    if (!query.exec("INSERT INTO Users(ID, Name, LastName, Login, Password, Rating) VALUES(" +
+    if (!query.exec("INSERT INTO Users(ID, Name, LastName, Login, Password, Balance, Rating) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     "'" + _user.Name + "', " +
                     "'" + _user.LastName + "', " +

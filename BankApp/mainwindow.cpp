@@ -1,28 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-inline QString HashPassword(const QString& _password)
-{
-    QByteArray passwordData = _password.toUtf8();
-    QByteArray hashedData = QCryptographicHash::hash(passwordData, QCryptographicHash::Sha256);
-    return QString::fromLatin1(hashedData.toHex());
-}
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     Connect();
-    m_oUsers = NSData::Users(&m_oDB);
-    m_oCredits = NSData::Credits(&m_oDB);
-    m_oDeposits = NSData::Deposits(&m_oDB);
-
-    QLabel *backgroundlabel = new QLabel(this);
-    backgroundlabel->setPixmap(QPixmap(qApp->applicationDirPath() + "\\background1.png"));
-    backgroundlabel->setGeometry(0, 0, backgroundlabel->pixmap().width(), backgroundlabel->pixmap().height());
-    backgroundlabel->setScaledContents(true);
-    backgroundlabel->lower();
+    m_oUsers = NSData::Users(m_oDB);
+    m_oCredits = NSData::Credits(m_oDB);
+    m_oDeposits = NSData::Deposits(m_oDB);
 }
 
 MainWindow::~MainWindow()
@@ -33,16 +20,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::Connect()
 {
-    m_oDB = QSqlDatabase::addDatabase("QPSQL");
-    m_oDB.setDatabaseName("postgres");
-    m_oDB.setUserName("postgres");
-    m_oDB.setPassword("12345678");
+    m_oDB = new QSqlDatabase;
+    *m_oDB = QSqlDatabase::addDatabase("QPSQL");
+    m_oDB->setDatabaseName("postgres");
+    m_oDB->setUserName("postgres");
+    m_oDB->setPassword("12345678");
+    m_oDB->open();
 }
 
 void MainWindow::Disconnect()
 {
-    m_oDB.close();
-    m_oDB.~QSqlDatabase();
+    m_oDB->close();
+    m_oDB->~QSqlDatabase();
 }
 
 void MainWindow::on_LoginButton_clicked()
@@ -67,7 +56,7 @@ void MainWindow::on_LoginButton_clicked()
 
 void MainWindow::on_RegistrationButton_clicked()
 {
-    RegistrationWindow window;
+    RegistrationWindow window(nullptr, m_oDB);
     window.setModal(true);
     window.exec();
 }

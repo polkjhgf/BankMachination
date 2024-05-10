@@ -14,8 +14,26 @@ RegistrationWindow::~RegistrationWindow()
     delete ui;
 }
 
-void RegistrationWindow::on_pushButton_clicked()
+void RegistrationWindow::on_RegistrationButton_clicked()
 {
-    if()
+    if (!m_oUsers.Check(ui->LoginLineEdit->text()))
+    {
+        ui->LoginErrorLabel->setText("This login already used!");
+        return;
+    }
+
+    if (ui->PasswordLineEdit->text() != ui->ConfirmPasswordLineEdit->text())
+    {
+        ui->PasswordErrorLabel->setText("Passwords do not match!");
+        return;
+    }
+
+    NSData::User newuser(ui->NameLineEdit->text(),
+                         ui->LastnameLineEdit->text(),
+                         ui->LoginLineEdit->text(),
+                         HashPassword(ui->PasswordLineEdit->text()),
+                         100000);
+    m_oUsers.Set(newuser);
+    this->~RegistrationWindow();
 }
 

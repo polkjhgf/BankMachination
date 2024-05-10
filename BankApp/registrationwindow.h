@@ -2,10 +2,18 @@
 #define REGISTRATIONWINDOW_H
 
 #include <QDialog>
+#include <QCryptographicHash>
 #include "DataBase.h"
 
 namespace Ui {
 class RegistrationWindow;
+}
+
+inline QString HashPassword(const QString& _password)
+{
+    QByteArray passwordData = _password.toUtf8();
+    QByteArray hashedData = QCryptographicHash::hash(passwordData, QCryptographicHash::Sha256);
+    return QString::fromLatin1(hashedData.toHex());
 }
 
 class RegistrationWindow : public QDialog
@@ -17,7 +25,9 @@ public:
     ~RegistrationWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+
+    void on_RegistrationButton_clicked();
 
 private:
     NSData::Users m_oUsers;

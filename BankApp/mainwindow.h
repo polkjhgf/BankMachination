@@ -3,11 +3,10 @@
 
 #include <QMainWindow>
 #include <QLineEdit>
-#include <QCryptographicHash>
 #include <QPixmap>
 #include <QPalette>
 #include <QLabel>
-#include "registrationwindow.h""
+#include "registrationwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,6 +37,6 @@ private:
     NSData::Deposits m_oDeposits;
 
     Ui::MainWindow *ui;
-    QSqlDatabase m_oDB;
+    QSqlDatabase *m_oDB;
 };
 #endif // MAINWINDOW_H

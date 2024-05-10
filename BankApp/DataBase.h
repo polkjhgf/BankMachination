@@ -12,8 +12,7 @@ template <typename T>
 class DataBase
 {
 public:
-    DataBase(QSqlDatabase *_db) : m_db(_db) {}
-    DataBase() : m_db(nullptr) {}
+    DataBase(QSqlDatabase *_db = nullptr) : m_db(_db) {}
     ~DataBase() {}
 
     virtual bool Check(const T& _data) = 0;
@@ -58,8 +57,7 @@ struct User
 class Users : public DataBase<User>
 {
 public:
-    Users(QSqlDatabase *_db) : DataBase(_db) {}
-    Users() : DataBase() {}
+    Users(QSqlDatabase *_db = nullptr) : DataBase(_db) {}
     bool Check(const User& _user) override;
     bool Check(const QString& _login);
 
@@ -96,8 +94,7 @@ struct Credit
 class Credits : public DataBase<Credit>
 {
 public:
-    Credits(QSqlDatabase *_db) : DataBase(_db) {}
-    Credits() : DataBase() {}
+    Credits(QSqlDatabase *_db = nullptr) : DataBase(_db) {}
 
     bool Check(const Credit& _credit) override;
 
@@ -127,8 +124,7 @@ struct Deposit
 class Deposits : public DataBase<Deposit>
 {
 public:
-    Deposits(QSqlDatabase *_db) : DataBase(_db) {}
-    Deposits() : DataBase() {}
+    Deposits(QSqlDatabase *_db = nullptr) : DataBase(_db) {}
 
     bool Check(const Deposit& _deposit) override;
 
