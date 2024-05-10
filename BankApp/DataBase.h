@@ -61,6 +61,7 @@ public:
     Users(QSqlDatabase *_db) : DataBase(_db) {}
     Users() : DataBase() {}
     bool Check(const User& _user) override;
+    bool Check(const QString& _login);
 
     bool Set(const User& _user) override;
 

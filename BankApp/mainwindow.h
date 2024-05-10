@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include <QLineEdit>
 #include <QCryptographicHash>
-#include "DataBase.h"
+#include <QPixmap>
+#include <QPalette>
+#include <QLabel>
+#include "registrationwindow.h""
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +26,11 @@ public:
     void Connect();
     void Disconnect();
 
+
+private slots:
+    void on_LoginButton_clicked();
+
+    void on_RegistrationButton_clicked();
 
 private:
     NSData::Users m_oUsers;

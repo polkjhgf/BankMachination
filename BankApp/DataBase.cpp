@@ -11,7 +11,16 @@ bool Users::Check(const User& _user)
     if (!query.first())
         return true;
 
-    m_sError = "This Login already used!";
+    return false;
+}
+
+bool Users::Check(const QString& _login)
+{
+    QSqlQuery query = QSqlQuery(*m_db);
+    query.exec("SELECT * FROM Users WHERE Login = '" + _login + "'");
+    if (!query.first())
+        return true;
+
     return false;
 }
 

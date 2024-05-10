@@ -11,14 +11,17 @@ CONFIG += c++17
 SOURCES += \
     DataBase.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    registrationwindow.cpp
 
 HEADERS += \
     DataBase.h \
-    mainwindow.h
+    mainwindow.h \
+    registrationwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    registrationwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
