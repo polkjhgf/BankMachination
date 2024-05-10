@@ -1,13 +1,16 @@
 #ifndef USERWINDOW_H
 #define USERWINDOW_H
 
-#include <QDialog>
+#include <QMainWindow>
+#include <QTableView>
+#include <QStandardItemModel>
 #include "DataBase.h"
+
 namespace Ui {
 class UserWindow;
 }
 
-class UserWindow : public QDialog
+class UserWindow : public QMainWindow
 {
     Q_OBJECT
 

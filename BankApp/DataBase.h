@@ -38,14 +38,16 @@ struct User
          const QString& _login,
          const QString& _password,
          double _balance) : Name(_name), LastName(_lastname), Login(_login), Password(_password), Balance(_balance), Rating(0.5f) {}
-    User(const QString& _name,
+    User(int _id,
+         const QString& _name,
          const QString& _lastname,
          const QString& _login,
          const QString& _password,
          double _balance,
-         float _rating) : Name(_name), LastName(_lastname), Login(_login), Password(_password), Balance(_balance), Rating(_rating) {}
+         float _rating) : ID(_id), Name(_name), LastName(_lastname), Login(_login), Password(_password), Balance(_balance), Rating(_rating) {}
     ~User() {}
 
+    int ID;
     QString Name;
     QString LastName;
     QString Login;
