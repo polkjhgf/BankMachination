@@ -22,6 +22,9 @@
      <height>440</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #052C6E;</string>
+   </property>
    <widget class="QPushButton" name="CreditButton">
     <property name="geometry">
      <rect>
@@ -30,6 +33,16 @@
       <width>200</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+
+</string>
     </property>
     <property name="text">
      <string>Credit</string>
@@ -44,6 +57,16 @@
       <height>50</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+
+</string>
+    </property>
     <property name="text">
      <string>Main Window</string>
     </property>
@@ -56,6 +79,16 @@
       <width>200</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+
+</string>
     </property>
     <property name="text">
      <string>Deposit</string>
@@ -70,47 +103,43 @@
       <height>311</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:  #4ea5ff;</string>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="BalanceLabel">
       <property name="geometry">
        <rect>
-        <x>230</x>
-        <y>70</y>
+        <x>220</x>
+        <y>80</y>
         <width>161</width>
-        <height>31</height>
+        <height>21</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
       </property>
       <property name="text">
        <string>Balance</string>
       </property>
      </widget>
-     <widget class="QLabel" name="WelcomeLabel">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>181</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Welcome</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>91</x>
         <y>80</y>
-        <width>52</width>
-        <height>16</height>
+        <width>121</width>
+        <height>20</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
       <property name="text">
-       <string>BALANCE</string>
+       <string>Your BALANCE is </string>
       </property>
      </widget>
     </widget>
@@ -123,6 +152,14 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
       </property>
       <property name="text">
        <string>Credit</string>
@@ -137,6 +174,10 @@
         <height>110</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="PayAllButton">
       <property name="geometry">
@@ -146,6 +187,11 @@
         <width>80</width>
         <height>24</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
       </property>
       <property name="text">
        <string>Pay all</string>
@@ -159,6 +205,11 @@
         <width>80</width>
         <height>24</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
       </property>
       <property name="text">
        <string> Monthly pay</string>
@@ -212,6 +263,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
       <property name="text">
        <string>Time</string>
       </property>
@@ -224,6 +278,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
       </property>
       <property name="text">
        <string>Rate</string>
@@ -238,6 +295,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
       <property name="text">
        <string>Amount</string>
       </property>
@@ -250,6 +310,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
       </property>
       <property name="text">
        <string>Time</string>
@@ -264,6 +327,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
       <property name="text">
        <string>Rate</string>
       </property>
@@ -276,6 +342,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
       </property>
       <property name="text">
        <string>Amount</string>
@@ -290,6 +359,11 @@
         <height>24</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
+      </property>
       <property name="text">
        <string>Take Credit</string>
       </property>
@@ -303,8 +377,11 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: #BF3030;</string>
+      </property>
       <property name="text">
-       <string>Error</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="ErrorPayLabel">
@@ -316,8 +393,12 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: #BF3030;
+</string>
+      </property>
       <property name="text">
-       <string>Error</string>
+       <string/>
       </property>
      </widget>
     </widget>
@@ -327,9 +408,18 @@
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>49</width>
-        <height>16</height>
+        <width>71</width>
+        <height>21</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+</string>
       </property>
       <property name="text">
        <string>Deposit</string>
@@ -344,6 +434,10 @@
         <height>100</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="CloseDepositButton">
       <property name="geometry">
@@ -353,6 +447,11 @@
         <width>80</width>
         <height>24</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
       </property>
       <property name="text">
        <string>Close Deposit</string>
@@ -406,6 +505,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
+      </property>
       <property name="text">
        <string>Time</string>
       </property>
@@ -418,6 +520,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
       </property>
       <property name="text">
        <string>Rate</string>
@@ -432,6 +537,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
+      </property>
       <property name="text">
        <string>Amount</string>
       </property>
@@ -444,6 +552,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
       </property>
       <property name="text">
        <string>Time</string>
@@ -458,6 +569,9 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
+      </property>
       <property name="text">
        <string>Rate</string>
       </property>
@@ -470,6 +584,9 @@
         <width>49</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white; </string>
       </property>
       <property name="text">
        <string>Amount</string>
@@ -484,8 +601,13 @@
         <height>24</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
+      </property>
       <property name="text">
-       <string>Take Credit</string>
+       <string>Take Deposit</string>
       </property>
      </widget>
      <widget class="QLabel" name="ErrorDepositLabel">
@@ -497,11 +619,36 @@
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: #BF3030;</string>
+      </property>
       <property name="text">
-       <string>Error</string>
+       <string/>
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QLabel" name="WelcomeLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>241</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+</string>
+    </property>
+    <property name="text">
+     <string>Welcome</string>
+    </property>
    </widget>
   </widget>
  </widget>
