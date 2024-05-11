@@ -17,6 +17,7 @@ SOURCES += \
 
 HEADERS += \
     DataBase.h \
+    Definition.h \
     mainwindow.h \
     registrationwindow.h \
     userwindow.h

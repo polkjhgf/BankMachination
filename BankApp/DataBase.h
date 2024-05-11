@@ -21,10 +21,11 @@ public:
 
     virtual T Get(int id) = 0;
 
+    virtual void resetData(const T& _data) = 0;
+
     QString getError() { return m_sError; }
 protected:
     virtual int getLastID() = 0;
-    virtual void resetData(const T& _data) = 0;
 
 protected:
     QSqlDatabase *m_db;
@@ -68,9 +69,10 @@ public:
     User Get(int id) override;
     User Get(const QString& _login);
 
+    void resetData(const User& _user) override;
+
 protected:
     int getLastID() override;
-    void resetData(const User& _user) override;
 };
 
 struct Credit
@@ -78,19 +80,20 @@ struct Credit
     Credit(int _customerid,
            float _rate,
            float _time,
-           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(false) {}
+           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(0) {}
     Credit(int _customerid,
            float _rate,
            float _time,
            int _amount,
-           bool _monthpaid) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(_monthpaid) {}
+           int _monthpaid) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(_monthpaid) {}
+    Credit(int _customerid) : CustomerID(_customerid) {}
     ~Credit() {}
 
     int CustomerID;
     float Rate;
     float Time;
     int Amount;
-    bool MonthPaid;
+    int MonthPaid;
 };
 
 class Credits : public DataBase<Credit>
@@ -104,9 +107,13 @@ public:
 
     Credit Get(int id) override;
 
+    void resetData(const Credit& _credit) override;
+
+    void Close(const Credit& _credit);
+
 protected:
     int getLastID() override;
-    void resetData(const Credit& _credit) override;
+    void resetIncome(const Credit& _credit, bool closed);
 };
 
 struct Deposit
@@ -115,6 +122,7 @@ struct Deposit
             float _rate,
             float _time,
             int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount) {}
+    Deposit(int _customerid) : CustomerID(_customerid) {}
     ~Deposit() {}
 
     int CustomerID;
@@ -134,9 +142,13 @@ public:
 
     Deposit Get(int id) override;
 
+    void resetData(const Deposit& _deposit) override;
+
+    void Close(const Deposit& _deposit);
+
 protected:
     int getLastID() override;
-    void resetData(const Deposit& _deposit) override;
+    void resetConsumption(const Deposit& _deposit, bool closed);
 };
 }
 
