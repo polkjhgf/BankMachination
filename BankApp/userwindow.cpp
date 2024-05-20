@@ -11,8 +11,11 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     user = _user;
 
     m_oUsers = NSData::Users(_db);
+    m_oUsers.GetDate();
     m_oCredits = NSData::Credits(_db);
+    m_oCredits.GetDate();
     m_oDeposits = NSData::Deposits(_db);
+    m_oDeposits.GetDate();
 
     ui->WelcomeLabel->setText("Welcome " + _user->Name);
     ui->BalanceLabel->setText(QString::number(_user->Balance, 'f', 0));

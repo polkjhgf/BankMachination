@@ -7,6 +7,7 @@ RegistrationWindow::RegistrationWindow(QWidget *parent, QSqlDatabase *_db)
 {
     ui->setupUi(this);
     m_oUsers = NSData::Users(_db);
+    m_oUsers.GetDate();
     ui->PasswordLineEdit->setEchoMode(QLineEdit::Password);
     ui->ConfirmPasswordLineEdit->setEchoMode(QLineEdit::Password);
 }

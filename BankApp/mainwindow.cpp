@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Connect();
     m_oUsers = NSData::Users(m_oDB);
+    m_oUsers.GetDate();
     ui->PasswordLineEdit->setEchoMode(QLineEdit::Password);
 }
 

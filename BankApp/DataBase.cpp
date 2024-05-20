@@ -111,9 +111,10 @@ bool Credits::Check(const Credit& _credit)
 bool Credits::Set(const Credit& _credit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    if (!query.exec("INSERT INTO Credits(contractid, customerid, rate, time, amount, closed, monthpaid) VALUES(" +
+    if (!query.exec("INSERT INTO Credits(contractid, customerid, contractdate, rate, time, amount, closed, monthpaid) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_credit.CustomerID) + ", " +
+                    + "'" + CurrentDate + "', " +
                     QString::number(_credit.Rate) + ", " +
                     QString::number(_credit.Time) + ", " +
                     QString::number(_credit.Amount) + ", false, 0)"))
@@ -134,7 +135,8 @@ Credit Credits::Get(int id)
     return Credit(query.value(1).toInt(),
                   query.value(2).toFloat(),
                   query.value(3).toInt(),
-                  query.value(4).toFloat(),
+                  query.value(4).toString(),
+                  query.value(5).toFloat(),
                   query.value(6).toInt());
 }
 
@@ -207,10 +209,11 @@ bool Deposits::Check(const Deposit& _deposit)
 bool Deposits::Set(const Deposit& _deposit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    if (!query.exec("INSERT INTO Deposits(ContractID, CustomerID, Rate, Time, Amount, Closed) VALUES(" +
+    if (!query.exec("INSERT INTO Deposits(ContractID, CustomerID, Rate, ContractDate, Time, Amount, Closed) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_deposit.CustomerID) + ", " +
                     QString::number(_deposit.Rate) + ", " +
+                    + "'" + CurrentDate + "', " +
                     QString::number(_deposit.Time) + ", " +
                     QString::number(_deposit.Amount) + ", " +
                     "false)"))
@@ -231,7 +234,8 @@ Deposit Deposits::Get(int id)
     return Deposit(query.value(1).toInt(),
                    query.value(2).toFloat(),
                    query.value(3).toFloat(),
-                   query.value(4).toInt());
+                   query.value(4).toString(),
+                   query.value(5).toInt());
 }
 
 int Deposits::getLastID()
