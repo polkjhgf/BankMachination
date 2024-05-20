@@ -141,7 +141,7 @@ Credit Credits::Get(int id)
 int Credits::getLastID()
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    query.exec("SELECT ID FROM Credits ORDER BY ID");
+    query.exec("SELECT ContractID FROM Credits ORDER BY ContractID");
     if (!query.last()) return 0;
     return query.value(0).toInt();
 }
@@ -158,7 +158,6 @@ void Credits::resetData(const Credit& _credit)
                " WHERE CustomerID = " +
                QString::number(_credit.CustomerID) +
                " and Closed = false");
-    resetIncome(_credit, true);
     resetIncome(_credit, false);
 }
 
@@ -197,6 +196,11 @@ bool Deposits::Check(const Deposit& _deposit)
     if (query.value(1).toDouble() - query.value(2).toDouble() - _deposit.Rate * _deposit.Amount / 1200 < 0)
         return false;
 
+    QSqlQuery query1 = QSqlQuery(*m_db);
+    query1.exec("SELECT * FROM Deposits WHERE CustomerID = " + QString::number(_deposit.CustomerID) + " and Closed = false");
+    if (query1.first())
+        return false;
+
     return true;
 }
 
@@ -233,13 +237,19 @@ Deposit Deposits::Get(int id)
 int Deposits::getLastID()
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    query.exec("SELECT ID FROM Deposits ORDER BY ID");
+    query.exec("SELECT ContractID FROM Deposits ORDER BY ContractID");
     if (!query.last()) return 0;
     return query.value(0).toInt();
 }
 
 void Deposits::resetData(const Deposit& _deposit)
 {
+    QSqlQuery query1 = QSqlQuery(*m_db);
+    query1.exec("SELECT * FROM Deposits WHERE CustomerID = " + QString::number(_deposit.CustomerID) + " and Closed = false");
+    query1.first();
+    Deposit olddeposit(query1.value(1).toInt(), query1.value(2).toFloat(), query1.value(3).toFloat(), query1.value(4).toInt());
+    resetConsumption(olddeposit, true);
+
     QSqlQuery query = QSqlQuery(*m_db);
     query.exec("UPDATE Deposits SET Time = " +
                QString::number(_deposit.Time) +
@@ -248,7 +258,6 @@ void Deposits::resetData(const Deposit& _deposit)
                " WHERE CustomerID = " +
                QString::number(_deposit.CustomerID) +
                " and Closed = false");
-    resetConsumption(_deposit, true);
     resetConsumption(_deposit, false);
 }
 

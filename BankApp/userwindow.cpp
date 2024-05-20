@@ -36,6 +36,9 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     *deposit = m_oDeposits.Get(_user->ID);
     if (deposit->CustomerID != 0)
     {
+        deposit->Amount += deposit->Amount * deposit->Rate / 1200;
+        deposit->Time -= 1;
+        m_oDeposits.resetData(*deposit);
         setDeposit(*deposit);
     }
     else
@@ -46,12 +49,6 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
 
 UserWindow::~UserWindow()
 {
-    if (deposit != nullptr)
-    {
-        deposit->Amount += deposit->Amount * deposit->Rate / 1200;
-        deposit->Time -= 1;
-        m_oDeposits.resetData(*deposit);
-    }
     delete ui;
 }
 
@@ -109,6 +106,7 @@ void UserWindow::on_CloseDepositButton_clicked()
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     m_oUsers.resetData(*user);
     m_oDeposits.Close(*deposit);
+    deposit = nullptr;
     QStandardItemModel *model = qobject_cast<QStandardItemModel*>(ui->DepositView->model());
     if (model) {
         model->removeRows(0, model->rowCount());
