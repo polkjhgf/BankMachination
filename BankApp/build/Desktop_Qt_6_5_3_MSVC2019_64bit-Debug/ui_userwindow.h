@@ -125,7 +125,7 @@ public:
         label->setStyleSheet(QString::fromUtf8("color: white;"));
         CreditView = new QTableView(page_2);
         CreditView->setObjectName("CreditView");
-        CreditView->setGeometry(QRect(20, 40, 421, 110));
+        CreditView->setGeometry(QRect(20, 40, 520, 91));
         CreditView->setStyleSheet(QString::fromUtf8("background-color: white;\n"
 "border-radius: 5px;"));
         PayAllButton = new QPushButton(page_2);
@@ -184,11 +184,11 @@ public:
 "text-color: blue;"));
         ErrorCreditLabel = new QLabel(page_2);
         ErrorCreditLabel->setObjectName("ErrorCreditLabel");
-        ErrorCreditLabel->setGeometry(QRect(380, 250, 151, 16));
+        ErrorCreditLabel->setGeometry(QRect(380, 250, 201, 16));
         ErrorCreditLabel->setStyleSheet(QString::fromUtf8("color: #BF3030;"));
         ErrorPayLabel = new QLabel(page_2);
         ErrorPayLabel->setObjectName("ErrorPayLabel");
-        ErrorPayLabel->setGeometry(QRect(290, 160, 141, 16));
+        ErrorPayLabel->setGeometry(QRect(290, 160, 291, 16));
         ErrorPayLabel->setStyleSheet(QString::fromUtf8("color: #BF3030;\n"
 ""));
         stackedWidget->addWidget(page_2);
@@ -196,13 +196,13 @@ public:
         page_3->setObjectName("page_3");
         label_5 = new QLabel(page_3);
         label_5->setObjectName("label_5");
-        label_5->setGeometry(QRect(40, 20, 71, 21));
+        label_5->setGeometry(QRect(30, 20, 71, 21));
         label_5->setFont(font1);
         label_5->setStyleSheet(QString::fromUtf8("color: white;\n"
 ""));
         DepositView = new QTableView(page_3);
         DepositView->setObjectName("DepositView");
-        DepositView->setGeometry(QRect(30, 50, 421, 100));
+        DepositView->setGeometry(QRect(20, 40, 320, 91));
         DepositView->setStyleSheet(QString::fromUtf8("background-color: white;\n"
 "border-radius: 5px;"));
         CloseDepositButton = new QPushButton(page_3);
@@ -213,49 +213,49 @@ public:
 "text-color: blue;"));
         TimeSlider_2 = new QSlider(page_3);
         TimeSlider_2->setObjectName("TimeSlider_2");
-        TimeSlider_2->setGeometry(QRect(70, 200, 160, 16));
+        TimeSlider_2->setGeometry(QRect(80, 210, 160, 16));
         TimeSlider_2->setOrientation(Qt::Horizontal);
         RateSlider_2 = new QSlider(page_3);
         RateSlider_2->setObjectName("RateSlider_2");
-        RateSlider_2->setGeometry(QRect(70, 220, 160, 16));
+        RateSlider_2->setGeometry(QRect(80, 230, 160, 16));
         RateSlider_2->setOrientation(Qt::Horizontal);
         AmountSlider_2 = new QSlider(page_3);
         AmountSlider_2->setObjectName("AmountSlider_2");
-        AmountSlider_2->setGeometry(QRect(70, 240, 160, 16));
+        AmountSlider_2->setGeometry(QRect(80, 250, 160, 16));
         AmountSlider_2->setOrientation(Qt::Horizontal);
         label_6 = new QLabel(page_3);
         label_6->setObjectName("label_6");
-        label_6->setGeometry(QRect(20, 200, 49, 16));
+        label_6->setGeometry(QRect(30, 210, 49, 16));
         label_6->setStyleSheet(QString::fromUtf8("color: white; "));
         label_7 = new QLabel(page_3);
         label_7->setObjectName("label_7");
-        label_7->setGeometry(QRect(20, 220, 49, 16));
+        label_7->setGeometry(QRect(30, 230, 49, 16));
         label_7->setStyleSheet(QString::fromUtf8("color: white; "));
         label_8 = new QLabel(page_3);
         label_8->setObjectName("label_8");
-        label_8->setGeometry(QRect(20, 240, 49, 16));
+        label_8->setGeometry(QRect(30, 250, 49, 16));
         label_8->setStyleSheet(QString::fromUtf8("color: white; "));
         TimeLabel_2 = new QLabel(page_3);
         TimeLabel_2->setObjectName("TimeLabel_2");
-        TimeLabel_2->setGeometry(QRect(240, 200, 49, 16));
+        TimeLabel_2->setGeometry(QRect(250, 210, 49, 16));
         TimeLabel_2->setStyleSheet(QString::fromUtf8("color: white; "));
         RateLabel_2 = new QLabel(page_3);
         RateLabel_2->setObjectName("RateLabel_2");
-        RateLabel_2->setGeometry(QRect(240, 220, 49, 16));
+        RateLabel_2->setGeometry(QRect(250, 230, 49, 16));
         RateLabel_2->setStyleSheet(QString::fromUtf8("color: white; "));
         AmountLabel_2 = new QLabel(page_3);
         AmountLabel_2->setObjectName("AmountLabel_2");
-        AmountLabel_2->setGeometry(QRect(240, 240, 49, 16));
+        AmountLabel_2->setGeometry(QRect(250, 250, 49, 16));
         AmountLabel_2->setStyleSheet(QString::fromUtf8("color: white; "));
         TakeDepositButton = new QPushButton(page_3);
         TakeDepositButton->setObjectName("TakeDepositButton");
-        TakeDepositButton->setGeometry(QRect(370, 200, 80, 24));
+        TakeDepositButton->setGeometry(QRect(370, 210, 80, 24));
         TakeDepositButton->setStyleSheet(QString::fromUtf8("background-color: white;\n"
 "border-radius: 5px;\n"
 "text-color: blue;"));
         ErrorDepositLabel = new QLabel(page_3);
         ErrorDepositLabel->setObjectName("ErrorDepositLabel");
-        ErrorDepositLabel->setGeometry(QRect(370, 240, 161, 16));
+        ErrorDepositLabel->setGeometry(QRect(370, 250, 211, 16));
         ErrorDepositLabel->setStyleSheet(QString::fromUtf8("color: #BF3030;"));
         stackedWidget->addWidget(page_3);
         WelcomeLabel = new QLabel(centralwidget);
@@ -269,7 +269,7 @@ public:
 
         retranslateUi(UserWindow);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(UserWindow);

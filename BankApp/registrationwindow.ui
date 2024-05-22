@@ -19,9 +19,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>40</x>
      <y>10</y>
-     <width>101</width>
+     <width>211</width>
      <height>56</height>
     </rect>
    </property>
@@ -36,7 +36,7 @@
 text-font: segoe;</string>
    </property>
    <property name="text">
-    <string>Login</string>
+    <string>Registration</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -240,7 +240,7 @@ border-radius: 5px;</string>
     <rect>
      <x>40</x>
      <y>260</y>
-     <width>49</width>
+     <width>221</width>
      <height>16</height>
     </rect>
    </property>
@@ -249,7 +249,7 @@ border-radius: 5px;</string>
 </string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="PasswordErrorLabel">
@@ -257,7 +257,7 @@ border-radius: 5px;</string>
     <rect>
      <x>40</x>
      <y>380</y>
-     <width>211</width>
+     <width>221</width>
      <height>16</height>
     </rect>
    </property>
@@ -265,7 +265,7 @@ border-radius: 5px;</string>
     <string notr="true">color: white;</string>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
  </widget>

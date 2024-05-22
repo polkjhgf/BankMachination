@@ -370,7 +370,7 @@ border-color: white;</string>
       <rect>
        <x>100</x>
        <y>230</y>
-       <width>151</width>
+       <width>251</width>
        <height>16</height>
       </rect>
      </property>
@@ -394,7 +394,7 @@ text-font: sergoe;</string>
       <rect>
        <x>100</x>
        <y>180</y>
-       <width>151</width>
+       <width>251</width>
        <height>16</height>
       </rect>
      </property>

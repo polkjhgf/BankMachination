@@ -15,12 +15,17 @@ public:
     DataBase(QSqlDatabase *_db = nullptr) : m_db(_db) {}
     ~DataBase() {}
 
-    void GetDate()
+    void SetDate()
     {
         QSqlQuery query = QSqlQuery(*m_db);
         query.exec("SELECT CURRENT_DATE");
         query.first();
         CurrentDate = query.value(0).toString();
+    }
+
+    QString GetDate() const
+    {
+        return CurrentDate;
     }
 
     virtual bool Check(const T& _data) = 0;
@@ -89,22 +94,22 @@ struct Credit
     Credit(int _customerid,
            float _rate,
            float _time,
-           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(0) {}
+           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(0), ContractDate("") {}
     Credit(int _customerid,
            float _rate,
            float _time,
-           QString _contractdate,
            int _amount,
-           int _monthpaid) : CustomerID(_customerid), Rate(_rate), ContractDate(_contractdate), Time(_time), Amount(_amount), MonthPaid(_monthpaid) {}
+           int _monthpaid,
+           QString _contractdate) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(_monthpaid), ContractDate(_contractdate) {}
     Credit(int _customerid) : CustomerID(_customerid) {}
     ~Credit() {}
 
     int CustomerID;
     float Rate;
-    QString ContractDate;
     float Time;
     int Amount;
     int MonthPaid;
+    QString ContractDate;
 };
 
 class Credits : public DataBase<Credit>
@@ -132,20 +137,22 @@ struct Deposit
     Deposit(int _customerid,
             float _rate,
             float _time,
-            int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount) {}
+            int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), ContractDate(""), MonthPaid(0) {}
     Deposit(int _customerid,
             float _rate,
             float _time,
+            int _amount,
             QString _contractdate,
-            int _amount) : CustomerID(_customerid), Rate(_rate), ContractDate(_contractdate), Time(_time), Amount(_amount) {}
+            int _monthpaid) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), ContractDate(_contractdate), MonthPaid(_monthpaid) {}
     Deposit(int _customerid) : CustomerID(_customerid) {}
     ~Deposit() {}
 
     int CustomerID;
     float Rate;
-    QString ContractDate;
     float Time;
     int Amount;
+    QString ContractDate;
+    int MonthPaid;
 };
 
 class Deposits : public DataBase<Deposit>

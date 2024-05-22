@@ -114,10 +114,10 @@ bool Credits::Set(const Credit& _credit)
     if (!query.exec("INSERT INTO Credits(contractid, customerid, contractdate, rate, time, amount, closed, monthpaid) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_credit.CustomerID) + ", " +
-                    + "'" + CurrentDate + "', " +
                     QString::number(_credit.Rate) + ", " +
                     QString::number(_credit.Time) + ", " +
-                    QString::number(_credit.Amount) + ", false, 0)"))
+                    QString::number(_credit.Amount) + ", false, 0, " +
+                    "'" + CurrentDate + "')"))
     {
         m_sError = query.lastError().text();
         return false;
@@ -135,9 +135,9 @@ Credit Credits::Get(int id)
     return Credit(query.value(1).toInt(),
                   query.value(2).toFloat(),
                   query.value(3).toInt(),
-                  query.value(4).toString(),
-                  query.value(5).toFloat(),
-                  query.value(6).toInt());
+                  query.value(4).toFloat(),
+                  query.value(6).toInt(),
+                  query.value(7).toString());
 }
 
 int Credits::getLastID()
@@ -213,10 +213,10 @@ bool Deposits::Set(const Deposit& _deposit)
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_deposit.CustomerID) + ", " +
                     QString::number(_deposit.Rate) + ", " +
-                    + "'" + CurrentDate + "', " +
                     QString::number(_deposit.Time) + ", " +
-                    QString::number(_deposit.Amount) + ", " +
-                    "false)"))
+                    QString::number(_deposit.Amount) + ", false, " +
+                    "'" + CurrentDate + "', " +
+                    QString::number(_deposit.MonthPaid) + ")"))
     {
         m_sError = query.lastError().text();
         return false;
@@ -234,8 +234,9 @@ Deposit Deposits::Get(int id)
     return Deposit(query.value(1).toInt(),
                    query.value(2).toFloat(),
                    query.value(3).toFloat(),
-                   query.value(4).toString(),
-                   query.value(5).toInt());
+                   query.value(4).toFloat(),
+                   query.value(6).toString(),
+                   query.value(7).toInt());
 }
 
 int Deposits::getLastID()
@@ -255,10 +256,10 @@ void Deposits::resetData(const Deposit& _deposit)
     resetConsumption(olddeposit, true);
 
     QSqlQuery query = QSqlQuery(*m_db);
-    query.exec("UPDATE Deposits SET Time = " +
-               QString::number(_deposit.Time) +
-               ", Amount = " +
+    query.exec("UPDATE Deposits SET Amount = " +
                QString::number(_deposit.Amount) +
+               ",  monthpaid = " +
+               QString::number(_deposit.MonthPaid) +
                " WHERE CustomerID = " +
                QString::number(_deposit.CustomerID) +
                " and Closed = false");

@@ -11,14 +11,13 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     user = _user;
 
     m_oUsers = NSData::Users(_db);
-    m_oUsers.GetDate();
+    m_oUsers.SetDate();
     m_oCredits = NSData::Credits(_db);
-    m_oCredits.GetDate();
+    m_oCredits.SetDate();
     m_oDeposits = NSData::Deposits(_db);
-    m_oDeposits.GetDate();
+    m_oDeposits.SetDate();
 
     ui->WelcomeLabel->setText("Welcome " + _user->Name);
-    ui->BalanceLabel->setText(QString::number(_user->Balance, 'f', 0));
     ui->AmountLabel_2->setText(QString::number(MINDEPOSIT));
     ui->AmountLabel->setText(QString::number(MINCREDIT));
     ui->TimeLabel_2->setText(QString::number(MINTIMEDEPOSIT * 12));
@@ -31,6 +30,14 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     if (credit->CustomerID != 0)
     {
         setCredit(*credit);
+        int monthLost  = (m_oCredits.GetDate().sliced(0, 4).toInt() - credit->ContractDate.sliced(0, 4).toInt()) * 12 +
+                        m_oCredits.GetDate().sliced(5, 2).toInt() - credit->ContractDate.sliced(5, 2).toInt() - credit->MonthPaid;
+        if(monthLost > 0)
+        {
+            ui->ErrorPayLabel->setText(QString::number(monthLost) + " month not payed!");
+            user->Rating -= 0.1 * monthLost / credit->Time;
+            m_oUsers.resetData(*user);
+        }
     }
     else
         credit = nullptr;
@@ -39,14 +46,28 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     *deposit = m_oDeposits.Get(_user->ID);
     if (deposit->CustomerID != 0)
     {
-        deposit->Amount += deposit->Amount * deposit->Rate / 1200;
-        deposit->Time -= 1;
+        int monthLost  = (m_oDeposits.GetDate().sliced(0, 4).toInt() - deposit->ContractDate.sliced(0, 4).toInt()) * 12 +
+                        m_oDeposits.GetDate().sliced(5, 2).toInt() - deposit->ContractDate.sliced(5, 2).toInt() - deposit->MonthPaid;
+        for (int i = 0; i < monthLost; i++)
+        {
+            deposit->Amount += deposit->Amount * deposit->Rate / 1200;
+            deposit->MonthPaid++;
+        }
         m_oDeposits.resetData(*deposit);
-        setDeposit(*deposit);
+        if (deposit->Time == deposit->MonthPaid)
+        {
+            user->Balance += deposit->Amount;
+            m_oDeposits.Close(*deposit);
+        }
+        else
+        {
+            setDeposit(*deposit);
+        }
     }
     else
         deposit = nullptr;
 
+    ui->BalanceLabel->setText(QString::number(_user->Balance, 'f', 0));
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -78,7 +99,7 @@ void UserWindow::setDeposit(const NSData::Deposit& _deposit)
     model->setItem(0, 0, new QStandardItem("Time last"));
     model->setItem(0, 1, new QStandardItem("Rate"));
     model->setItem(0, 2, new QStandardItem("Amount"));
-    model->setItem(1, 0, new QStandardItem(QString::number(_deposit.Time)));
+    model->setItem(1, 0, new QStandardItem(QString::number(_deposit.Time - _deposit.MonthPaid)));
     model->setItem(1, 1, new QStandardItem(QString::number(_deposit.Rate)));
     model->setItem(1, 2, new QStandardItem(QString::number(_deposit.Amount)));
 
@@ -106,6 +127,7 @@ void UserWindow::on_DepositButton_clicked()
 void UserWindow::on_CloseDepositButton_clicked()
 {
     user->Balance += deposit->Amount;
+    deposit->MonthPaid = deposit->Time;
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     m_oUsers.resetData(*user);
     m_oDeposits.Close(*deposit);
@@ -126,9 +148,11 @@ void UserWindow::on_PayAllButton_clicked()
     }
 
     user->Balance -= credit->Amount;
+    credit->MonthPaid = credit->Time;
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     m_oUsers.resetData(*user);
     m_oCredits.Close(*credit);
+    ui->ErrorPayLabel->setText("");
     QStandardItemModel *model = qobject_cast<QStandardItemModel*>(ui->CreditView->model());
     if (model) {
         model->removeRows(0, model->rowCount());
@@ -149,8 +173,17 @@ void UserWindow::on_MonthlyPayButton_clicked()
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     credit->Amount -= credit->Amount / (credit->Time - credit->MonthPaid);
     credit->MonthPaid += 1;
-    credit->Time -= 1;
     m_oCredits.resetData(*credit);
+    int monthLost  = (m_oCredits.GetDate().sliced(0, 4).toInt() - credit->ContractDate.sliced(0, 4).toInt()) * 12 +
+                    m_oCredits.GetDate().sliced(5, 2).toInt() - credit->ContractDate.sliced(5, 2).toInt() - credit->MonthPaid;
+    if(monthLost > 0)
+    {
+        ui->ErrorPayLabel->setText(QString::number(monthLost) + " not payed!");
+        user->Rating -= 0.1 * monthLost / credit->Time;
+        m_oUsers.resetData(*user);
+    }
+    else
+        ui->ErrorPayLabel->setText("");
     QStandardItemModel *model = qobject_cast<QStandardItemModel*>(ui->CreditView->model());
     if (model) {
         model->removeRows(0, model->rowCount());
@@ -209,6 +242,7 @@ void UserWindow::on_TakeCreditButton_clicked()
     m_oCredits.Set(newcredit);
     setCredit(newcredit);
     credit = &newcredit;
+    ui->ErrorCreditLabel->setText("");
 }
 
 
@@ -231,5 +265,6 @@ void UserWindow::on_TakeDepositButton_clicked()
     m_oDeposits.Set(newdeposit);
     setDeposit(newdeposit);
     deposit = &newdeposit;
+    ui->ErrorDepositLabel->setText("");
 }
 
