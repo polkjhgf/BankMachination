@@ -92,7 +92,7 @@ void Users::resetData(const User& _user)
 bool Credits::Check(const Credit& _credit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    query.exec("SELECT Active FROM Credits WHERE CustomerID = " + QString::number(_credit.CustomerID));
+    query.exec("SELECT * FROM Credits WHERE CustomerID = " + QString::number(_credit.CustomerID) + " and Closed = false");
 
     QSqlQuery query1 = QSqlQuery(*m_db);
     query1.exec("SELECT Rating FROM Users WHERE ID = " + QString::number(_credit.CustomerID));
@@ -102,7 +102,7 @@ bool Credits::Check(const Credit& _credit)
     query2.exec("SELECT Amount FROM Bank");
     query2.first();
 
-    if (query.first() || query1.value(0).toInt() < 0.4 || query2.value(0).toInt() <= _credit.Amount)
+    if (query.first() || query1.value(0).toInt() < 0.3 || query2.value(0).toInt() <= _credit.Amount)
         return false;
 
     return true;
@@ -111,19 +111,20 @@ bool Credits::Check(const Credit& _credit)
 bool Credits::Set(const Credit& _credit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    if (!query.exec("INSERT INTO Credits(contractid, customerid, contractdate, rate, time, amount, closed, monthpaid) VALUES(" +
+    if (!query.exec("INSERT INTO Credits(contractid, customerid, rate, time, amount, closed, monthpaid, contractdate, allamount) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_credit.CustomerID) + ", " +
                     QString::number(_credit.Rate) + ", " +
                     QString::number(_credit.Time) + ", " +
                     QString::number(_credit.Amount) + ", false, 0, " +
-                    "'" + CurrentDate + "')"))
+                    "'" + CurrentDate + "', " +
+                    QString::number(_credit.AllAmount) + ")"))
     {
         m_sError = query.lastError().text();
         return false;
     }
 
-    resetIncome(_credit, false);
+    resetIncome(_credit, false, true);
     return true;
 }
 
@@ -137,7 +138,8 @@ Credit Credits::Get(int id)
                   query.value(3).toInt(),
                   query.value(4).toFloat(),
                   query.value(6).toInt(),
-                  query.value(7).toString());
+                  query.value(7).toString(),
+                  query.value(8).toInt());
 }
 
 int Credits::getLastID()
@@ -160,27 +162,32 @@ void Credits::resetData(const Credit& _credit)
                " WHERE CustomerID = " +
                QString::number(_credit.CustomerID) +
                " and Closed = false");
-    resetIncome(_credit, false);
+    resetIncome(_credit, false, false);
 }
 
 void Credits::Close(const Credit& _credit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    query.exec("UPDATE credits SET closed = true WHERE customerid = " + QString::number(_credit.CustomerID) + " and closed = false");
-    resetIncome(_credit, true);
+    query.exec("UPDATE credits SET closed = true, monthpaid = " + QString::number(_credit.MonthPaid) + " WHERE customerid = " + QString::number(_credit.CustomerID) + " and closed = false");
+    resetIncome(_credit, true, false);
 }
 
-void Credits::resetIncome(const Credit& _credit, bool closed)
+void Credits::resetIncome(const Credit& _credit, bool closed, bool set)
 {
     if (closed)
     {
         QSqlQuery query = QSqlQuery(*m_db);
-        query.exec("UPDATE Bank SET Income = Income - " + QString::number(_credit.Amount * _credit.Rate / 1200) + ", Amount = Amount + " + QString::number(_credit.Amount));
+        query.exec("UPDATE Bank SET Income = Income - " + QString::number(_credit.AllAmount * _credit.Rate / 1200) + ", Amount = Amount + " + QString::number(_credit.Amount));
+    }
+    else if (set)
+    {
+        QSqlQuery query = QSqlQuery(*m_db);
+        query.exec("UPDATE Bank SET Income = Income + " + QString::number(_credit.AllAmount * _credit.Rate / 1200) + ", Amount = Amount - " + QString::number(_credit.Amount));
     }
     else
     {
         QSqlQuery query = QSqlQuery(*m_db);
-        query.exec("UPDATE Bank SET Income = Income + " + QString::number(_credit.Amount * _credit.Rate / 1200) + ", Amount = Amount - " + QString::number(_credit.Amount));
+        query.exec("UPDATE Bank SET Amount = Amount + " + QString::number(_credit.Amount / (_credit.Time - _credit.MonthPaid) + _credit.Amount * _credit.Rate / 1200));
     }
 
 }
@@ -209,7 +216,7 @@ bool Deposits::Check(const Deposit& _deposit)
 bool Deposits::Set(const Deposit& _deposit)
 {
     QSqlQuery query = QSqlQuery(*m_db);
-    if (!query.exec("INSERT INTO Deposits(ContractID, CustomerID, Rate, ContractDate, Time, Amount, Closed) VALUES(" +
+    if (!query.exec("INSERT INTO Deposits(ContractID, CustomerID, Rate, Time, Amount, Closed, ContractDate, MonthPaid) VALUES(" +
                     QString::number(getLastID() + 1) + ", " +
                     QString::number(_deposit.CustomerID) + ", " +
                     QString::number(_deposit.Rate) + ", " +

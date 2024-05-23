@@ -94,13 +94,15 @@ struct Credit
     Credit(int _customerid,
            float _rate,
            float _time,
-           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(0), ContractDate("") {}
+           int _amount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(0), ContractDate(""), AllAmount(_amount) {}
     Credit(int _customerid,
            float _rate,
            float _time,
            int _amount,
            int _monthpaid,
-           QString _contractdate) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(_monthpaid), ContractDate(_contractdate) {}
+           QString _contractdate,
+           int _allamount) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), MonthPaid(_monthpaid), ContractDate(_contractdate), AllAmount(_allamount) {}
+    Credit(const Credit& _credit) : CustomerID(_credit.CustomerID), Rate(_credit.Rate), Time(_credit.Time), Amount(_credit.Amount), MonthPaid(_credit.MonthPaid), ContractDate(_credit.ContractDate), AllAmount(_credit.AllAmount) {}
     Credit(int _customerid) : CustomerID(_customerid) {}
     ~Credit() {}
 
@@ -110,6 +112,7 @@ struct Credit
     int Amount;
     int MonthPaid;
     QString ContractDate;
+    int AllAmount;
 };
 
 class Credits : public DataBase<Credit>
@@ -129,7 +132,7 @@ public:
 
 protected:
     int getLastID() override;
-    void resetIncome(const Credit& _credit, bool closed);
+    void resetIncome(const Credit& _credit, bool closed, bool set);
 };
 
 struct Deposit
@@ -144,6 +147,7 @@ struct Deposit
             int _amount,
             QString _contractdate,
             int _monthpaid) : CustomerID(_customerid), Rate(_rate), Time(_time), Amount(_amount), ContractDate(_contractdate), MonthPaid(_monthpaid) {}
+    Deposit(const Deposit& _deposit) : CustomerID(_deposit.CustomerID), Rate(_deposit.Rate), Time(_deposit.Time), Amount(_deposit.Amount), ContractDate(_deposit.ContractDate), MonthPaid(_deposit.MonthPaid) {}
     Deposit(int _customerid) : CustomerID(_customerid) {}
     ~Deposit() {}
 

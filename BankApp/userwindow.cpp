@@ -162,17 +162,22 @@ void UserWindow::on_PayAllButton_clicked()
 
 void UserWindow::on_MonthlyPayButton_clicked()
 {
-    if (user->Balance < (credit->Amount / (credit->Time - credit->MonthPaid)  + credit->Amount * credit->Rate / 1200))
+    if (user->Balance < (credit->AllAmount / credit->Time  + credit->Amount * credit->Rate / 1200))
     {
         ui->ErrorPayLabel->setText("Insufficient funds!");
         return;
     }
 
-    user->Balance -= (credit->Amount / (credit->Time - credit->MonthPaid)  + credit->Amount * credit->Rate / 1200);
+    user->Balance -= (credit->AllAmount / credit->Time  + credit->Amount * credit->Rate / 1200);
     m_oUsers.resetData(*user);
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
-    credit->Amount -= credit->Amount / (credit->Time - credit->MonthPaid);
+    credit->Amount -= credit->AllAmount / credit->Time;
     credit->MonthPaid += 1;
+    if (credit->MonthPaid == credit->Time)
+    {
+        on_PayAllButton_clicked();
+        return;
+    }
     m_oCredits.resetData(*credit);
     int monthLost  = (m_oCredits.GetDate().sliced(0, 4).toInt() - credit->ContractDate.sliced(0, 4).toInt()) * 12 +
                     m_oCredits.GetDate().sliced(5, 2).toInt() - credit->ContractDate.sliced(5, 2).toInt() - credit->MonthPaid;
@@ -241,7 +246,8 @@ void UserWindow::on_TakeCreditButton_clicked()
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     m_oCredits.Set(newcredit);
     setCredit(newcredit);
-    credit = &newcredit;
+    credit = new NSData::Credit(newcredit);
+    credit->ContractDate = m_oCredits.GetDate();
     ui->ErrorCreditLabel->setText("");
 }
 
@@ -264,7 +270,8 @@ void UserWindow::on_TakeDepositButton_clicked()
     ui->BalanceLabel->setText(QString::number(user->Balance, 'f', 0));
     m_oDeposits.Set(newdeposit);
     setDeposit(newdeposit);
-    deposit = &newdeposit;
+    deposit = new NSData::Deposit(newdeposit);
+    deposit->ContractDate = m_oDeposits.GetDate();
     ui->ErrorDepositLabel->setText("");
 }
 
