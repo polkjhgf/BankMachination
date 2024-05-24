@@ -6,9 +6,18 @@
 #include <QStandardItemModel>
 #include "DataBase.h"
 #include "Definition.h"
+#include "administratorwindow.h"
+
 
 namespace Ui {
 class UserWindow;
+}
+
+inline QString HashPassword1(const QString& _password)
+{
+    QByteArray passwordData = _password.toUtf8();
+    QByteArray hashedData = QCryptographicHash::hash(passwordData, QCryptographicHash::Sha256);
+    return QString::fromLatin1(hashedData.toHex());
 }
 
 class UserWindow : public QDialog
@@ -53,6 +62,10 @@ private slots:
     void on_TakeCreditButton_clicked();
 
     void on_TakeDepositButton_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_LoginAdmin_clicked();
 
 private:
     Ui::UserWindow *ui;

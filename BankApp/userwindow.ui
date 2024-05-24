@@ -107,7 +107,7 @@
      <string notr="true">background-color:  #4ea5ff;</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="BalanceLabel">
@@ -140,6 +140,65 @@
       </property>
       <property name="text">
        <string>Your BALANCE is </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>220</y>
+        <width>80</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
+      </property>
+      <property name="text">
+       <string>Administrator</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="AdminPasswordLineEdit">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>250</y>
+        <width>113</width>
+        <height>24</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Password">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>250</y>
+        <width>50</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Password</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="LoginAdmin">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>280</y>
+        <width>80</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+border-radius: 5px;
+text-color: blue;</string>
+      </property>
+      <property name="text">
+       <string>Login</string>
       </property>
      </widget>
     </widget>

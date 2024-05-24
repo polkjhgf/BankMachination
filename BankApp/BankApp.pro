@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     DataBase.cpp \
+    administratorwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     registrationwindow.cpp \
@@ -18,11 +19,13 @@ SOURCES += \
 HEADERS += \
     DataBase.h \
     Definition.h \
+    administratorwindow.h \
     mainwindow.h \
     registrationwindow.h \
     userwindow.h
 
 FORMS += \
+    administratorwindow.ui \
     mainwindow.ui \
     registrationwindow.ui \
     userwindow.ui

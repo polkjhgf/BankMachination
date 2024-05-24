@@ -7,6 +7,9 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     , m_oDB(_db)
 {
     ui->setupUi(this);
+    ui->AdminPasswordLineEdit->setEchoMode(QLineEdit::Password);
+    ui->AdminPasswordLineEdit->hide();
+    ui->Password->hide();
 
     user = _user;
 
@@ -273,5 +276,26 @@ void UserWindow::on_TakeDepositButton_clicked()
     deposit = new NSData::Deposit(newdeposit);
     deposit->ContractDate = m_oDeposits.GetDate();
     ui->ErrorDepositLabel->setText("");
+}
+
+
+void UserWindow::on_pushButton_clicked()
+{
+    ui->AdminPasswordLineEdit->show();
+    ui->Password->show();
+}
+
+
+void UserWindow::on_LoginAdmin_clicked()
+{
+    QSqlQuery query = QSqlQuery(*m_oDB);
+    query.exec("SELECT password FROM Users WHERE ID = 1");
+    query.first();
+    if (HashPassword1(ui->AdminPasswordLineEdit->text()) == query.value(0).toString())
+    {
+        AdministratorWindow window(nullptr, m_oDB);
+        window.setModal(true);
+        window.exec();
+    }
 }
 

@@ -14,6 +14,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStackedWidget>
@@ -33,6 +34,10 @@ public:
     QWidget *page;
     QLabel *BalanceLabel;
     QLabel *label_9;
+    QPushButton *pushButton;
+    QLineEdit *AdminPasswordLineEdit;
+    QLabel *Password;
+    QPushButton *LoginAdmin;
     QWidget *page_2;
     QLabel *label;
     QTableView *CreditView;
@@ -113,6 +118,24 @@ public:
         label_9->setObjectName("label_9");
         label_9->setGeometry(QRect(91, 80, 121, 20));
         label_9->setStyleSheet(QString::fromUtf8("color: white;"));
+        pushButton = new QPushButton(page);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(480, 220, 80, 24));
+        pushButton->setStyleSheet(QString::fromUtf8("background-color: white;\n"
+"border-radius: 5px;\n"
+"text-color: blue;"));
+        AdminPasswordLineEdit = new QLineEdit(page);
+        AdminPasswordLineEdit->setObjectName("AdminPasswordLineEdit");
+        AdminPasswordLineEdit->setGeometry(QRect(460, 250, 113, 24));
+        Password = new QLabel(page);
+        Password->setObjectName("Password");
+        Password->setGeometry(QRect(390, 250, 50, 16));
+        LoginAdmin = new QPushButton(page);
+        LoginAdmin->setObjectName("LoginAdmin");
+        LoginAdmin->setGeometry(QRect(480, 280, 80, 24));
+        LoginAdmin->setStyleSheet(QString::fromUtf8("background-color: white;\n"
+"border-radius: 5px;\n"
+"text-color: blue;"));
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName("page_2");
@@ -269,7 +292,7 @@ public:
 
         retranslateUi(UserWindow);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(UserWindow);
@@ -283,6 +306,9 @@ public:
         DepositButton->setText(QCoreApplication::translate("UserWindow", "Deposit", nullptr));
         BalanceLabel->setText(QCoreApplication::translate("UserWindow", "Balance", nullptr));
         label_9->setText(QCoreApplication::translate("UserWindow", "Your BALANCE is ", nullptr));
+        pushButton->setText(QCoreApplication::translate("UserWindow", "Administrator", nullptr));
+        Password->setText(QCoreApplication::translate("UserWindow", "Password", nullptr));
+        LoginAdmin->setText(QCoreApplication::translate("UserWindow", "Login", nullptr));
         label->setText(QCoreApplication::translate("UserWindow", "Credit", nullptr));
         PayAllButton->setText(QCoreApplication::translate("UserWindow", "Pay all", nullptr));
         MonthlyPayButton->setText(QCoreApplication::translate("UserWindow", " Monthly pay", nullptr));

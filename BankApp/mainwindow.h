@@ -8,7 +8,6 @@
 #include <QLabel>
 #include "registrationwindow.h"
 #include "userwindow.h"
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
