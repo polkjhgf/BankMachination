@@ -104,10 +104,11 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:  #4ea5ff;</string>
+     <string notr="true">background-color:  #4ea5ff;
+color: black;</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QLabel" name="BalanceLabel">
@@ -154,7 +155,7 @@
       <property name="styleSheet">
        <string notr="true">background-color: white;
 border-radius: 5px;
-text-color: blue;</string>
+color: blue;</string>
       </property>
       <property name="text">
        <string>Administrator</string>
@@ -179,6 +180,9 @@ text-color: blue;</string>
         <height>16</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
       <property name="text">
        <string>Password</string>
       </property>
@@ -195,7 +199,7 @@ text-color: blue;</string>
       <property name="styleSheet">
        <string notr="true">background-color: white;
 border-radius: 5px;
-text-color: blue;</string>
+color: blue;</string>
       </property>
       <property name="text">
        <string>Login</string>

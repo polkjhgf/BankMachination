@@ -10,6 +10,8 @@ UserWindow::UserWindow(QWidget *parent, NSData::User *_user, QSqlDatabase *_db)
     ui->AdminPasswordLineEdit->setEchoMode(QLineEdit::Password);
     ui->AdminPasswordLineEdit->hide();
     ui->Password->hide();
+    ui->LoginAdmin->hide();
+
 
     user = _user;
 
@@ -283,6 +285,7 @@ void UserWindow::on_pushButton_clicked()
 {
     ui->AdminPasswordLineEdit->show();
     ui->Password->show();
+    ui->LoginAdmin->show();
 }
 
 

@@ -72,7 +72,8 @@ text-font: segoe;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
+    <string notr="true">background-color: white;
+color: black;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -108,7 +109,8 @@ text-font: segoe;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
+    <string notr="true">background-color: white;
+color: black;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -143,7 +145,8 @@ text-font: segoe;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
+    <string notr="true">background-color: white;
+color: black;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
@@ -178,7 +181,8 @@ text-font: segoe;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
+    <string notr="true">background-color: white;
+color: black;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -214,7 +218,8 @@ text-font: segoe;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: white;</string>
+    <string notr="true">background-color: white;
+color: black;</string>
    </property>
   </widget>
   <widget class="QPushButton" name="RegistrationButton">
@@ -229,10 +234,11 @@ text-font: segoe;</string>
    <property name="styleSheet">
     <string notr="true">color: 4e598c;
 background-color: white;
-border-radius: 5px;</string>
+border-radius: 5px;
+color: black;</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>registration</string>
    </property>
   </widget>
   <widget class="QLabel" name="LoginErrorLabel">
@@ -245,7 +251,7 @@ border-radius: 5px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;
+    <string notr="true">color: red;
 </string>
    </property>
    <property name="text">
@@ -262,7 +268,7 @@ border-radius: 5px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: white;</string>
+    <string notr="true">color: red;</string>
    </property>
    <property name="text">
     <string/>

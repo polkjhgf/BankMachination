@@ -1,0 +1,10 @@
+debug/DataBase.o
+debug/administratorwindow.o
+debug/main.o
+debug/mainwindow.o
+debug/registrationwindow.o
+debug/userwindow.o
+debug/moc_administratorwindow.o
+debug/moc_mainwindow.o
+debug/moc_registrationwindow.o
+debug/moc_userwindow.o

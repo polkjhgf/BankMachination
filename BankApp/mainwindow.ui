@@ -47,7 +47,8 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 5px;</string>
+     <string notr="true">border-radius: 5px;
+color: black;</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="PasswordLineEdit">
@@ -60,7 +61,8 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius: 5px;</string>
+     <string notr="true">border-radius: 5px;
+color: black;</string>
     </property>
    </widget>
    <widget class="QFrame" name="frame">
@@ -432,7 +434,8 @@ text-font: sergoe</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: white;
-border-radius: 5px;</string>
+border-radius: 5px;
+color: black;</string>
      </property>
      <property name="text">
       <string>Login</string>

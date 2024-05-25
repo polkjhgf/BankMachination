@@ -23,7 +23,7 @@ void MainWindow::Connect()
     *m_oDB = QSqlDatabase::addDatabase("QPSQL");
     m_oDB->setDatabaseName("postgres");
     m_oDB->setUserName("postgres");
-    m_oDB->setPassword("12345678");
+    m_oDB->setPassword("0013");
     m_oDB->open();
 }
 

@@ -37,6 +37,6 @@ void RegistrationWindow::on_RegistrationButton_clicked()
                          HashPassword(ui->PasswordLineEdit->text()),
                          100000);
     m_oUsers.Set(newuser);
-    this->~RegistrationWindow();
+    this->hide();
 }
 
